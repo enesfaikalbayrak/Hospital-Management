@@ -1,0 +1,11 @@
+id;patient_information;doctor_information;prescription;date;appoitment_status;patient_id;doctor_id
+1;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;2022-12-17T05:34:11;WAITING;1;1
+2;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;2022-12-17T06:07:58;WAITING;2;2
+3;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;2022-12-17T11:56:21;DELETED;3;3
+4;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;2022-12-17T18:39:01;WAITING;4;4
+5;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;2022-12-17T12:53:19;DELETED;5;5
+6;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;2022-12-16T21:57:17;WAITING;6;6
+7;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;2022-12-17T02:24:58;WAITING;7;7
+8;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;2022-12-17T09:29:32;DELETED;8;8
+9;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;2022-12-17T12:39:49;PROCESSED;9;9
+10;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;2022-12-17T04:39:09;PROCESSED;10;10

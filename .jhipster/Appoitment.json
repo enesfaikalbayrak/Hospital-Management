@@ -1,0 +1,58 @@
+{
+  "applications": "*",
+  "changelogDate": "20221217210444",
+  "clientRootFolder": "HospitalManagement",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "appoitment",
+  "fields": [
+    {
+      "fieldName": "patientInformation",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "doctorInformation",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "prescription",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "appoitmentStatus",
+      "fieldType": "AppoitmentStatus",
+      "fieldValues": "WAITING,PROCESSED,DELETED"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "HospitalManagement",
+  "name": "Appoitment",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "patient",
+      "otherEntityRelationshipName": "appoitment",
+      "relationshipName": "patient",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "doctor",
+      "otherEntityRelationshipName": "appoitment",
+      "relationshipName": "doctor",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}
