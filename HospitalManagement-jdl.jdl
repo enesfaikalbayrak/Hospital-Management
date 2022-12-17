@@ -1,0 +1,81 @@
+LONG_TEXT = 2023
+
+entity Patient {
+    fullName String required
+    email String required
+    identityNumber String maxlength(LONG_TEXT) required
+    telephoneNumber String maxlength(LONG_TEXT) required
+    gender Gender required
+    password String required
+    bloodType BloodType required
+}
+
+entity Admin {
+    email String required
+    password String required
+}
+
+entity Appoitment {
+    patientInformation TextBlob // Reserved to store information for prescription patient
+    doctorInformation TextBlob // Reserved to store information for prescription doctor
+    prescription TextBlob // Reserved to store information for prescription client
+    date Instant
+    appoitmentStatus AppoitmentStatus
+}
+
+entity Prescription {
+    note String
+    medicines TextBlob // Reserved to store information for medicines
+}
+
+entity Doctor {
+    fullName String required
+    email String required
+    identityNumber String maxlength(LONG_TEXT) required
+    telephoneNumber String maxlength(LONG_TEXT) required
+    gender Gender required
+    password String required
+    bloodType BloodType required
+    specialist String required
+    avaliableTimes TextBlob // Reserved to store information for schedule
+}
+
+entity Department {
+    departmentName String
+    telephoneNumber String maxlength(LONG_TEXT) required
+}
+
+enum BloodType {
+    ORH,
+    Orh,
+    ARH,
+    Arh,
+    BRH,
+    Brh,
+    ABRH,
+    ABrh
+}
+
+enum AppoitmentStatus {
+    WAITING,
+    PROCESSED,
+    DELETED
+}
+
+enum Gender {
+    MALE,
+    FEMALE,
+    OTHER
+}
+
+relationship OneToMany {
+    Patient{Appoitment} to Appoitment{Patient required}
+    Doctor{Appoitment} to Appoitment{Doctor required}
+    Department{Doctor} to Doctor{Department required}
+}
+
+filter *
+service * with serviceImpl
+paginate * with pagination
+
+microservice all with HospitalManagementCore
