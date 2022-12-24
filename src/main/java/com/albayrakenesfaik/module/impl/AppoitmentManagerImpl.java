@@ -44,24 +44,7 @@ public class AppoitmentManagerImpl implements AppoitmentManager {
 
         Assert.isTrue(this.isAppoitmentDTOValid(appoitmentDTO), BusinessExceptionKey.REQUEST_PARAMS_MISSING);
 
-        Appoitment appoitment = new Appoitment();
-
-        try {
-            String doctorInformation = objectMapper.writeValueAsString(appoitmentDTO.getDoctorDTO());
-            String patientInformation = objectMapper.writeValueAsString(appoitmentDTO.getPatientDTO());
-            String prescriptionInformation = objectMapper.writeValueAsString(appoitmentDTO.getPrescriptionDTO());
-            AppoitmentStatus appoitmentStatus = appoitmentDTO.getAppoitmentStatus();
-
-            appoitment.setPatientInformation(patientInformation);
-            appoitment.setDoctorInformation(doctorInformation);
-            appoitment.setPrescription(prescriptionInformation);
-            appoitment.setAppoitmentStatus(appoitmentStatus);
-
-        } catch (Exception exception) {
-            log.error("An unhandled error occurred in create Appoitment when convert json to appointmentDTO : {} ",
-                appoitmentDTO);
-            throw new BusinessException(BusinessExceptionKey.JSON_PARSE_ERROR);
-        }
+        Appoitment appoitment = this.hospitalManagementContextMapper.appoitmentDTOToAppoitment(appoitmentDTO);
 
         log.debug("The Appointment to be created has been obtained as : {}", appoitmentDTO);
         this.appoitmentRepository.save(appoitment);
@@ -71,13 +54,29 @@ public class AppoitmentManagerImpl implements AppoitmentManager {
 
     @Override
     public AppoitmentDTO updateAppoitment(Definition<AppoitmentDTO> definition) {
-        return null;
+        AppoitmentDTO appoitmentDTO = definition.getItem();
+        log.debug("Updating appoitment is requested with appoitment : {}", appoitmentDTO);
+
+        Assert.isTrue(this.isAppoitmentDTOValid(appoitmentDTO), BusinessExceptionKey.REQUEST_PARAMS_MISSING);
+        Assert.isNotNull(appoitmentDTO.getId(), BusinessExceptionKey.REQUEST_PARAMS_MISSING);
+
+        Optional<Appoitment> appoitment = this.getAppoitmentById(Definition.get(appoitmentDTO.getId()).build());
+        Assert.isTrue(appoitment.isPresent(), BusinessExceptionKey.APPOITMENT_NOT_FOUND);
+
+        log.debug("The Appoitment has been obtained from database as : {}", appoitment);
+
+        Appoitment updatingAppoitment = this.hospitalManagementContextMapper.appoitmentDTOToAppoitment(appoitmentDTO);
+
+        log.debug("The Appoitment to be updated has been obtained as : {}", appoitmentDTO);
+        this.appoitmentRepository.save(updatingAppoitment);
+
+        return appoitmentDTO;
     }
 
     @Override
     public Optional<List<AppoitmentDTO>> getAllAppoitments(Instant startTime,
                                                            Instant endTime) {
-        log.debug("Getting all Assigned Tasks are requested by  startTime : {} and endTime : {} ",
+        log.debug("Getting all Appoitment are requested by  startTime : {} and endTime : {} ",
             startTime, endTime);
 
         Assert.isNotNull(startTime, BusinessExceptionKey.REQUEST_PARAMS_MISSING);
@@ -85,7 +84,7 @@ public class AppoitmentManagerImpl implements AppoitmentManager {
 
         List<Appoitment> appoitments = this.appoitmentRepository.findAllByDateBetween(startTime, endTime);
 
-        log.debug("Assigned tasks are get as : {}", appoitments);
+        log.debug("Appoitments are get as : {}", appoitments);
 
         List<AppoitmentDTO> appoitmentDTOS = new ArrayList<>();
         appoitments.forEach(appoitment -> appoitmentDTOS.add(this.hospitalManagementContextMapper.appoitmentTOAppoinmentDTO(appoitment)));
@@ -95,12 +94,46 @@ public class AppoitmentManagerImpl implements AppoitmentManager {
 
     @Override
     public Optional<List<AppoitmentDTO>> getAllAppoitmentsByDoctorId(Long doctorId, Instant startTime, Instant endTime) {
-        return Optional.empty();
+        log.debug("Getting all Appoitment by doctor Id are requested by doctorId : {} startTime : {} and endTime : {} ",
+            doctorId, startTime, endTime);
+
+        Assert.isNotNull(doctorId, BusinessExceptionKey.REQUEST_PARAMS_MISSING);
+        Assert.isNotNull(startTime, BusinessExceptionKey.REQUEST_PARAMS_MISSING);
+        Assert.isNotNull(endTime, BusinessExceptionKey.REQUEST_PARAMS_MISSING);
+
+        List<Appoitment> appoitments = this.appoitmentRepository.findAllByDoctorIdAndDateBetween(doctorId, startTime, endTime);
+
+        log.debug("Appoitments are get as : {}", appoitments);
+
+        List<AppoitmentDTO> appoitmentDTOS = new ArrayList<>();
+        appoitments.forEach(appoitment -> appoitmentDTOS.add(this.hospitalManagementContextMapper.appoitmentTOAppoinmentDTO(appoitment)));
+
+        return Optional.of(appoitmentDTOS);
     }
 
     @Override
     public Optional<List<AppoitmentDTO>> getAllAppoitmentsByPatientId(Long patientId, Instant startTime, Instant endTime) {
-        return Optional.empty();
+        log.debug("Getting all Appoitment by patient Id are requested by doctorId : {} startTime : {} and endTime : {} ",
+            patientId, startTime, endTime);
+
+        Assert.isNotNull(patientId, BusinessExceptionKey.REQUEST_PARAMS_MISSING);
+        Assert.isNotNull(startTime, BusinessExceptionKey.REQUEST_PARAMS_MISSING);
+        Assert.isNotNull(endTime, BusinessExceptionKey.REQUEST_PARAMS_MISSING);
+
+        List<Appoitment> appoitments = this.appoitmentRepository.findAllAppoitmentsByPatientIdAndDateBetween(patientId, startTime, endTime);
+
+        log.debug("Appoitments are get as : {}", appoitments);
+
+        List<AppoitmentDTO> appoitmentDTOS = new ArrayList<>();
+        appoitments.forEach(appoitment -> appoitmentDTOS.add(this.hospitalManagementContextMapper.appoitmentTOAppoinmentDTO(appoitment)));
+
+        return Optional.of(appoitmentDTOS);
+    }
+
+    private Optional<Appoitment> getAppoitmentById(Definition<Void> definition) {
+        log.debug("Getting Appoitment is requested with id : {}", definition.getId());
+
+        return this.appoitmentRepository.findById(definition.getId());
     }
 
     private boolean isAppoitmentDTOValid(AppoitmentDTO appoitmentDTO) {

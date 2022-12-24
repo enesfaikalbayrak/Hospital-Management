@@ -14,7 +14,7 @@ public class BusinessExceptionStatusUtil {
             case KPI_NOT_FOUND:
             case INBOX_NOT_FOUND:
             case ASSIGNEE_NOT_FOUND:
-            case ASSIGNED_TASK_NOT_FOUND:
+            case APPOITMENT_NOT_FOUND:
             case ASSIGNEE_INBOX_NOT_FOUND:
             case GOAL_NOT_FOUND:
             case INBOX_TARGET_NOT_FOUND:
