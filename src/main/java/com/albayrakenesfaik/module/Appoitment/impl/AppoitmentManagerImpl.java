@@ -1,4 +1,4 @@
-package com.albayrakenesfaik.module.impl;
+package com.albayrakenesfaik.module.Appoitment.impl;
 
 import com.albayrakenesfaik.domain.Appoitment;
 import com.albayrakenesfaik.domain.dto.AppoitmentDTO;
@@ -8,7 +8,7 @@ import com.albayrakenesfaik.extension.definition.Definition;
 import com.albayrakenesfaik.extension.validation.Assert;
 import com.albayrakenesfaik.extension.validation.BusinessException;
 import com.albayrakenesfaik.extension.validation.BusinessExceptionKey;
-import com.albayrakenesfaik.module.AppoitmentManager;
+import com.albayrakenesfaik.module.Appoitment.AppoitmentManager;
 import com.albayrakenesfaik.repository.AppoitmentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

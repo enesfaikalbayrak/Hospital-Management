@@ -4,11 +4,31 @@ import com.albayrakenesfaik.domain.enumeration.BloodType;
 import com.albayrakenesfaik.domain.enumeration.Gender;
 
 public class PatientDTO {
+    private Long id;
+    private String email;
     private String fulName;
     private String telephoneNumber;
     private Gender gender;
     private BloodType bloodType;
     private String identityNumber;
+
+    public Long getId() {
+        return id;
+    }
+
+    public PatientDTO setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public PatientDTO setEmail(String email) {
+        this.email = email;
+        return this;
+    }
 
     public String getFulName() {
         return fulName;
@@ -58,7 +78,9 @@ public class PatientDTO {
     @Override
     public String toString() {
         return "PatientDTO{" +
-            "fulName='" + fulName + '\'' +
+            "id=" + id +
+            ", email='" + email + '\'' +
+            ", fulName='" + fulName + '\'' +
             ", telephoneNumber='" + telephoneNumber + '\'' +
             ", gender=" + gender +
             ", bloodType=" + bloodType +

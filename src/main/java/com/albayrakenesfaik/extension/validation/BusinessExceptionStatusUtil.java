@@ -11,17 +11,11 @@ public class BusinessExceptionStatusUtil {
             case NOT_AUTHORIZED:
                 return Status.UNAUTHORIZED;
             case NOT_FOUND:
-            case KPI_NOT_FOUND:
-            case INBOX_NOT_FOUND:
-            case ASSIGNEE_NOT_FOUND:
             case APPOITMENT_NOT_FOUND:
-            case ASSIGNEE_INBOX_NOT_FOUND:
-            case GOAL_NOT_FOUND:
-            case INBOX_TARGET_NOT_FOUND:
+            case PATIENT_NOT_EXIST:
                 return Status.NOT_FOUND;
-            case KPI_IN_USE:
+            case PATIENT_ALREADY_EXIST:
             case ASSIGNEE_ALREADY_EXIST:
-            case ASSIGNEE_INBOX_ALREADY_EXIST:
                 return Status.NOT_ACCEPTABLE;
             case OPTION_VALUE_NULL:
             case JSON_PARSE_ERROR:

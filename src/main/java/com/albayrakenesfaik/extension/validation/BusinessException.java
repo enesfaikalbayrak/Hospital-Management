@@ -1,7 +1,6 @@
 package com.albayrakenesfaik.extension.validation;
 
 import org.springframework.util.StringUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 
