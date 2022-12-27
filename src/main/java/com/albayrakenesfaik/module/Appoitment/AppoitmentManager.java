@@ -1,4 +1,4 @@
-package com.albayrakenesfaik.module;
+package com.albayrakenesfaik.module.Appoitment;
 
 import com.albayrakenesfaik.domain.dto.AppoitmentDTO;
 import com.albayrakenesfaik.extension.definition.Definition;
